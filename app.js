@@ -51,6 +51,10 @@
   function dow(s) { return new Date(dayNum(s) * 86400000).getUTCDay(); }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function shortDate(s) { const t = ymd(s); return MONTHS[t.m - 1] + ' ' + t.d; }
+  function rangeLabel(a, b) {
+    const x = ymd(a), y = ymd(b);
+    return x.m === y.m ? shortDate(a) + ' \u2013 ' + y.d : shortDate(a) + ' \u2013 ' + shortDate(b);
+  }
   function slashDate(s) { const t = ymd(s); return t.m + '/' + t.d; }
 
   // minutes from midnight of baseDate to the "YYYY-MM-DDTHH:MM" stamp (handles overnight)
@@ -237,7 +241,7 @@
     const we = addDays(ws, 6);
     const punches = punchesForWeek(ws);
 
-    $('weekRange').textContent = shortDate(ws) + ' \u2013 ' + shortDate(we);
+    $('weekRange').textContent = rangeLabel(ws, we);
     $('weekName').textContent = weekName(i);
     $('prevWeek').disabled = i >= d.weeks.length - 1;
     $('nextWeek').disabled = i <= 0;
@@ -248,6 +252,7 @@
     $('weekHours').textContent = fmtHours(total);
     const note = $('weekNote');
     note.classList.toggle('bad', problems > 0);
+    note.classList.toggle('good', problems === 0 && punches.length > 0 && !onClock);
     if (problems) note.textContent = problems === 1 ? '1 missing clock-out' : problems + ' missing clock-outs';
     else if (onClock) note.textContent = 'On the clock now; total updates after you clock out';
     else if (punches.length) note.textContent = 'No missed punches found';
@@ -370,7 +375,7 @@
     const punches = punchesForWeek(ws);
     const lines = [
       'LWH Timesheet: ' + d.employee.name + ' (ID ' + d.employee.emp_id + ')',
-      'Week of ' + shortDate(ws) + ' \u2013 ' + shortDate(addDays(ws, 6)) + ': ' +
+      'Week of ' + rangeLabel(ws, addDays(ws, 6)) + ': ' +
         fmtHours(punches.reduce((s, p) => s + (p.hours || 0), 0)) + ' hours',
       ''
     ];

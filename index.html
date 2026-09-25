@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#073e50">
+  <meta name="theme-color" content="#7d1935">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="LWH Timesheet">
@@ -73,27 +73,29 @@
 
     <!-- Hours -->
     <section id="viewHours" class="view" hidden>
-      <div class="who">
-        <h1 id="empName"></h1>
-        <p class="muted small" id="empId"></p>
+      <div class="summary">
+        <div class="who">
+          <h1 id="empName"></h1>
+          <p id="empId"></p>
+        </div>
+
+        <nav class="weeknav" aria-label="Choose week">
+          <button class="navbtn" id="prevWeek" type="button" aria-label="Earlier week">&#8249;</button>
+          <div class="weeklabel">
+            <div class="weekrange" id="weekRange"></div>
+            <div class="weekname" id="weekName"></div>
+          </div>
+          <button class="navbtn" id="nextWeek" type="button" aria-label="Later week">&#8250;</button>
+        </nav>
+
+        <div class="weektotal">
+          <div class="total-hours"><span id="weekHours"></span><span class="unit">hours</span></div>
+          <div class="total-note" id="weekNote"></div>
+          <p class="weeksite" id="weekSite" hidden></p>
+        </div>
       </div>
 
       <div id="attention" class="attention" hidden></div>
-
-      <nav class="weeknav" aria-label="Choose week">
-        <button class="navbtn" id="prevWeek" type="button" aria-label="Earlier week">&#8249;</button>
-        <div class="weeklabel">
-          <div class="weekrange" id="weekRange"></div>
-          <div class="weekname" id="weekName"></div>
-        </div>
-        <button class="navbtn" id="nextWeek" type="button" aria-label="Later week">&#8250;</button>
-      </nav>
-
-      <div class="weektotal">
-        <div class="total-hours"><span id="weekHours"></span> <span class="unit">hours</span></div>
-        <div class="total-note" id="weekNote"></div>
-      </div>
-      <p class="weeksite" id="weekSite" hidden></p>
 
       <ol class="days" id="dayList"></ol>
 

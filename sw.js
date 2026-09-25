@@ -1,6 +1,6 @@
 // Network-first for the app shell so updates land on the next open.
 // Supabase calls are cross-origin and never touched or cached here.
-const CACHE = 'lwh-timesheet-v1.0.0';
+const CACHE = 'lwh-timesheet-v1.1.0';
 const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'config.js', 'manifest.json',
                'icons/icon-192.png', 'icons/icon-512.png'];
 
