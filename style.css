@@ -1,0 +1,208 @@
+/* LWH Timesheet -- employee-facing, teal family (matches driver-facing apps) */
+:root {
+  --teal:        #0a5870;
+  --teal-deep:   #073e50;
+  --teal-light:  #128aa3;
+  --teal-wash:   #e4f0f3;
+  --page:        #eef3f4;
+  --surface:     #ffffff;
+  --ink:         #15252b;
+  --muted:       #56676d;
+  --line:        #d3dfe2;
+  --alert:       #b42318;
+  --alert-wash:  #fdecea;
+  --radius-lg:   14px;
+  --radius-sm:   8px;
+  --font: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.45;
+}
+[hidden] { display: none !important; }
+h1 { font-size: 1.6rem; line-height: 1.2; margin: 0 0 .35rem; }
+.muted { color: var(--muted); }
+.small { font-size: .9rem; }
+button { font: inherit; }
+:focus-visible { outline: 3px solid var(--teal-light); outline-offset: 2px; }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--teal-deep); color: #fff;
+}
+.topbar-inner {
+  max-width: 640px; margin: 0 auto; padding: .7rem 1rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.brand { display: flex; align-items: center; gap: .6rem; font-weight: 700; font-size: 1.05rem; }
+.brand-mark {
+  width: 22px; height: 22px; border-radius: 6px; background: var(--teal-light);
+  box-shadow: inset 0 -7px 0 rgba(255,255,255,.28);
+}
+.topbar-actions { display: flex; gap: 1.1rem; }
+.topbar .linkbtn { color: #fff; }
+
+.linkbtn {
+  background: none; border: 0; padding: .35rem 0; color: var(--teal);
+  cursor: pointer; font-weight: 700; font-size: 1rem;
+}
+.linkbtn.under { text-decoration: underline; text-underline-offset: 3px; margin-top: 1rem; }
+
+main { max-width: 640px; margin: 0 auto; padding: 1.25rem 1rem 2rem; }
+.center-view { text-align: center; padding-top: 3rem; }
+
+/* ---------- Auth ---------- */
+.auth-view { padding-top: .75rem; }
+.lede { color: var(--muted); margin: 0 0 1.4rem; max-width: 34ch; }
+.auth-form {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 1.25rem; display: grid; gap: .35rem;
+}
+.auth-form label { font-weight: 700; margin-top: .6rem; }
+.auth-form label:first-child { margin-top: 0; }
+.hint { font-weight: 400; color: var(--muted); font-size: .9rem; margin-left: .35rem; }
+.auth-form input {
+  font: inherit; font-size: 1.35rem; letter-spacing: .04em;
+  padding: .7rem .8rem; border: 2px solid var(--line); border-radius: var(--radius-sm);
+  background: #fff; color: var(--ink); width: 100%;
+}
+.auth-form input:focus { border-color: var(--teal-light); outline: none; }
+.form-error {
+  margin: .6rem 0 0; padding: .6rem .75rem; border-radius: var(--radius-sm);
+  background: var(--alert-wash); color: var(--alert); font-weight: 700;
+}
+.btn {
+  display: inline-flex; justify-content: center; align-items: center;
+  min-height: 52px; padding: .6rem 1.1rem; border-radius: var(--radius-sm);
+  border: 2px solid var(--teal); background: #fff; color: var(--teal);
+  font-weight: 700; font-size: 1.05rem; cursor: pointer;
+}
+.btn.primary { background: var(--teal); color: #fff; margin-top: 1rem; }
+.btn:disabled { opacity: .6; cursor: wait; }
+
+/* ---------- Hours ---------- */
+.who { margin-bottom: 1rem; }
+.who p { margin: 0; }
+
+.attention {
+  background: var(--alert-wash); border-left: 5px solid var(--alert);
+  border-radius: var(--radius-sm); padding: .8rem 1rem; margin-bottom: 1rem;
+}
+.attention p { margin: 0 0 .35rem; font-weight: 700; color: var(--alert); }
+.attention ul { margin: 0; padding: 0; list-style: none; }
+.attention li + li { margin-top: .2rem; }
+.attention button {
+  background: none; border: 0; padding: .15rem 0; color: var(--ink);
+  text-decoration: underline; text-underline-offset: 3px; cursor: pointer; text-align: left;
+}
+
+.weeknav {
+  display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; gap: .5rem;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: .45rem;
+}
+.navbtn {
+  height: 52px; border-radius: var(--radius-sm); border: 0;
+  background: var(--teal-wash); color: var(--teal-deep); font-size: 2rem; line-height: 1; cursor: pointer;
+}
+.navbtn:disabled { opacity: .3; cursor: default; }
+.weeklabel { text-align: center; }
+.weekrange { font-weight: 700; font-size: 1.15rem; }
+.weekname { color: var(--muted); font-size: .92rem; }
+
+.weektotal {
+  display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .25rem 1rem;
+  padding: 1.1rem .25rem .6rem; border-bottom: 3px solid var(--teal-deep); margin-bottom: .25rem;
+}
+.total-hours { font-size: 2.1rem; font-weight: 700; line-height: 1; color: var(--teal-deep); font-variant-numeric: tabular-nums; }
+.total-hours .unit { font-size: 1rem; color: var(--muted); font-weight: 400; }
+.total-note { font-weight: 700; color: var(--muted); }
+.total-note.bad { color: var(--alert); }
+.weeksite { margin: .35rem .25rem 0; color: var(--muted); font-size: .92rem; }
+
+/* Day rows: the timeline strip is the one bold element */
+.days { list-style: none; margin: 0; padding: 0; }
+.day {
+  display: grid; grid-template-columns: 4.2rem 1fr auto; gap: .2rem .8rem; align-items: start;
+  padding: .85rem .25rem; border-bottom: 1px solid var(--line);
+}
+.day.today { background: linear-gradient(90deg, var(--teal-wash), transparent 70%); }
+.day-name { font-weight: 700; line-height: 1.15; }
+.day-date { color: var(--muted); font-size: .88rem; display: block; font-weight: 400; }
+.day-hours { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.day-hours.none { color: var(--muted); font-weight: 400; }
+.day-body { grid-column: 2 / 4; }
+
+.strip {
+  position: relative; height: 16px; border-radius: 4px; margin: .15rem 0 .45rem;
+  background:
+    repeating-linear-gradient(90deg, transparent 0, transparent calc(var(--hour) - 1px), var(--line) calc(var(--hour) - 1px), var(--line) var(--hour)),
+    var(--teal-wash);
+}
+.seg { position: absolute; top: 0; bottom: 0; border-radius: 4px; background: var(--teal); min-width: 4px; }
+.seg.on_clock {
+  background: repeating-linear-gradient(135deg, var(--teal-light) 0 6px, #5fb6c7 6px 12px);
+}
+.seg.missing_out {
+  background: repeating-linear-gradient(135deg, var(--alert) 0 5px, #f3b6af 5px 10px);
+  border-top-right-radius: 0; border-bottom-right-radius: 0;
+}
+
+.punches { list-style: none; margin: 0; padding: 0; font-size: .95rem; }
+.punch { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 .75rem; }
+.punch + .punch { margin-top: .15rem; }
+.punch-time { font-variant-numeric: tabular-nums; }
+.punch-where { color: var(--muted); font-size: .85rem; flex-basis: 100%; }
+.flag {
+  display: inline-block; margin-top: .3rem; padding: .15rem .5rem; border-radius: 6px;
+  font-weight: 700; font-size: .88rem;
+}
+.flag.missing_out { background: var(--alert-wash); color: var(--alert); }
+.flag.on_clock { background: var(--teal-wash); color: var(--teal-deep); }
+
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 1.4rem; }
+.fineprint { margin-top: 1.4rem; color: var(--muted); font-size: .88rem; }
+.fineprint p { margin: 0 0 .4rem; }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%); background: var(--ink); color: #fff;
+  padding: .65rem 1rem; border-radius: var(--radius-sm); font-weight: 700; z-index: 10;
+}
+
+.print-head { display: none; }
+
+@media (max-width: 380px) {
+  body { font-size: 17px; }
+  .actions { grid-template-columns: 1fr; }
+  .day { grid-template-columns: 3.8rem 1fr auto; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .day-body .seg { transition: width .2s ease; }
+}
+
+/* ---------- Print: one clean page per week ---------- */
+@media print {
+  @page { margin: 12mm; }
+  :root { padding: 0; }
+  body { background: #fff; font-size: 12pt; }
+  .topbar, .weeknav .navbtn, .actions, .attention, .no-print { display: none !important; }
+  main { max-width: none; padding: 0; }
+  .weeknav { border: 0; padding: 0; display: block; }
+  .weeklabel { text-align: left; }
+  .day { break-inside: avoid; }
+  .day.today { background: none; }
+  .strip, .seg { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

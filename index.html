@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#073e50">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LWH Timesheet">
+  <title>LWH Timesheet</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">LWH Timesheet</span>
+      </div>
+      <div class="topbar-actions" id="topbarActions" hidden>
+        <button class="linkbtn" id="refreshBtn" type="button">Refresh</button>
+        <button class="linkbtn" id="signOutBtn" type="button">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app">
+    <!-- Loading -->
+    <section id="viewLoading" class="view center-view">
+      <p class="muted">Loading your hours…</p>
+    </section>
+
+    <!-- Sign in -->
+    <section id="viewSignIn" class="view auth-view" hidden>
+      <h1>Check your hours</h1>
+      <p class="lede">See every punch from the last five weeks, so you can catch a missed punch before payroll closes.</p>
+      <form id="signInForm" class="auth-form" novalidate>
+        <label for="siEmpId">Employee ID</label>
+        <input id="siEmpId" name="empId" inputmode="numeric" pattern="[0-9]*" autocomplete="username" required>
+        <label for="siPin">PIN</label>
+        <input id="siPin" name="pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="current-password" required>
+        <p class="form-error" id="signInError" role="alert" hidden></p>
+        <button class="btn primary" type="submit" id="signInBtn">Sign in</button>
+      </form>
+      <button class="linkbtn under" type="button" id="toSetup">First time here? Set up your PIN</button>
+    </section>
+
+    <!-- Set up PIN -->
+    <section id="viewSetup" class="view auth-view" hidden>
+      <h1>Set up your PIN</h1>
+      <p class="lede">Use the employee ID and setup code on the slip from your supervisor. The code works once.</p>
+      <form id="setupForm" class="auth-form" novalidate>
+        <label for="suEmpId">Employee ID</label>
+        <input id="suEmpId" inputmode="numeric" pattern="[0-9]*" autocomplete="username" required>
+        <label for="suCode">Setup code</label>
+        <input id="suCode" autocapitalize="characters" autocomplete="one-time-code" spellcheck="false" placeholder="ABCD-2345" required>
+        <label for="suPin">New PIN <span class="hint">6 digits</span></label>
+        <input id="suPin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="new-password" required>
+        <label for="suPin2">Type the PIN again</label>
+        <input id="suPin2" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="new-password" required>
+        <p class="form-error" id="setupError" role="alert" hidden></p>
+        <button class="btn primary" type="submit" id="setupBtn">Set PIN and sign in</button>
+      </form>
+      <p class="small muted">Lost your slip, or the code says it was already used? Ask your supervisor for a new code.</p>
+      <button class="linkbtn under" type="button" id="toSignIn">Already have a PIN? Sign in</button>
+    </section>
+
+    <!-- Hours -->
+    <section id="viewHours" class="view" hidden>
+      <div class="who">
+        <h1 id="empName"></h1>
+        <p class="muted small" id="empId"></p>
+      </div>
+
+      <div id="attention" class="attention" hidden></div>
+
+      <nav class="weeknav" aria-label="Choose week">
+        <button class="navbtn" id="prevWeek" type="button" aria-label="Earlier week">&#8249;</button>
+        <div class="weeklabel">
+          <div class="weekrange" id="weekRange"></div>
+          <div class="weekname" id="weekName"></div>
+        </div>
+        <button class="navbtn" id="nextWeek" type="button" aria-label="Later week">&#8250;</button>
+      </nav>
+
+      <div class="weektotal">
+        <div class="total-hours"><span id="weekHours"></span> <span class="unit">hours</span></div>
+        <div class="total-note" id="weekNote"></div>
+      </div>
+      <p class="weeksite" id="weekSite" hidden></p>
+
+      <ol class="days" id="dayList"></ol>
+
+      <div class="actions no-print">
+        <button class="btn" type="button" id="printBtn">Print or save PDF</button>
+        <button class="btn" type="button" id="shareBtn">Share this week</button>
+      </div>
+
+      <footer class="fineprint">
+        <p id="syncedAt"></p>
+        <p>Hours only. This is not a pay stub. If a punch is missing or wrong, tell your supervisor before payroll closes.</p>
+      </footer>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
